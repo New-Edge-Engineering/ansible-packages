@@ -1,3 +1,5 @@
 ---
-packages_repositories: []
-packages_list: []
+packages_repositories_apt: []
+packages_list_apt: []
+packages_repositories_yum: []
+packages_list_yum: []
