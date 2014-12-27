@@ -2,3 +2,7 @@
 # Install apt packages and repositories
 - include: apt.yml
   when: ansible_pkg_mgr == "apt"
+
+# Install yum packages and repositories
+- include: yum.yml
+  when: ansible_pkg_mgr == "yum"
