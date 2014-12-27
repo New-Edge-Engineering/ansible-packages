@@ -1,11 +1,11 @@
 ---
 - name: packages | Adding apt key for repository
-  apt_key: url={{ item.url }} state=present
+  apt_key: url="{{ item.url }}" state=present
   with_items: packages_repositories
   tags: packages
 
 - name: packages | Adding apt repository
-  apt_repository: repo={{ item.string }} state=present
+  apt_repository: repo="{{ item.string }}" state=present
   with_items: packages_repositories
   tags: packages
 
