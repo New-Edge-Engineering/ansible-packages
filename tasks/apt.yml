@@ -1,4 +1,8 @@
 ---
+- name: packages | Installing https transport for apt
+  apt: pkg=apt-transport-https state=present update_cache=yes
+  tags: packages
+
 - name: packages | Adding apt key for repository
   apt_key: url="{{ item.url }}" state=present
   with_items: packages_repositories_apt
