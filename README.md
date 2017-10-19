@@ -14,12 +14,8 @@ Role Variables
 This role contains only two variables:
 
 * packages_repositories - list of repositories you want to add. Subelemets are:
-
-** url - url to repository key
-
-** string - repository string (example: deb http://apt.domain.com/ wheezy main contrib non-free)
-
-
+  * url - url to repository key
+  * string - repository string (example: deb http://apt.domain.com/ wheezy main contrib non-free)
 * packages_list - list of packages you want to install (htop, atop and so on)
 
 
