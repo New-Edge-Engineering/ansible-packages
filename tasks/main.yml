@@ -1,8 +1,8 @@
 ---
 # Install apt packages and repositories
-- include: apt.yml
+- import_tasks: apt.yml
   when: ansible_pkg_mgr == "apt"
 
 # Install yum packages and repositories
-- include: yum.yml
+- import_tasks: yum.yml
   when: ansible_pkg_mgr == "yum"

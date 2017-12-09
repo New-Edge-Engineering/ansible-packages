@@ -1,15 +1,17 @@
 ---
-- name: packages | Adding yum repository
-  template:
-    src: yum.repo.j2
-    dest: "/etc/yum.repos.d/{{ item.name }}.repo"
-    owner: root
-    group: root
-    mode: 0644
+- name: yum | Adding yum repository
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.description | default(item.name) }}"
+    baseurl: "{{ item.baseurl | default('') }}"
+    mirrorlist: "{{ item.mirrorlist | default('') }}"
+    enabled: "{{ item.enabled | default('yes') }}"
+    gpgcheck: "{{ item.gpgcheck | default('no') }}"
+    state: "{{ item.state | default('present') }}"
   with_items: "{{ packages_repositories_yum }}"
   tags: packages
 
-- name: packages | Install packages
+- name: yum | Installing yum packages
   yum:
     pkg: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
