@@ -16,6 +16,4 @@
     pkg: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
   with_items: "{{ packages_list_yum }}"
-  retries: 3
-  delay: 2
   tags: packages
