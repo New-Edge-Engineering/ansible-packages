@@ -6,3 +6,7 @@
 # Install yum packages and repositories
 - import_tasks: yum.yml
   when: ansible_pkg_mgr == "yum"
+
+# Install yum packages and repositories
+- import_tasks: apk.yml
+  when: ansible_pkg_mgr == "apk"

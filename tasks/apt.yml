@@ -22,5 +22,5 @@
   apt:
     pkg: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
-  with_items: "{{ packages_list_apt }}"
+  with_items: "{{ packages|default(packages_list_apt) }}"
   tags: packages
