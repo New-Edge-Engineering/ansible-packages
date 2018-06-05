@@ -1,16 +1,17 @@
 ---
 - name: apt | Adding apt key for repository
   apt_key:
-    url: "{{ item.url }}"
+    url: "{{ item.key }}"
     state: present
-  with_items: "{{ packages_repositories_apt }}"
+  when: not(item.key is undefined or item.key is none or item.key|trim == '')
+  with_items: "{{ repositories|default(packages_repositories_apt) }}"
   tags: packages
 
 - name: apt | Adding apt repository
   apt_repository:
-    repo: "{{ item.string }}"
+    repo: "{{ item.url }}"
     state: present
-  with_items: "{{ packages_repositories_apt }}"
+  with_items: "{{ repositories|default(packages_repositories_apt) }}"
   tags: packages
 
 - name: apt | Updating apt cache
