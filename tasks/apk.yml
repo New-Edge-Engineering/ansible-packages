@@ -2,11 +2,16 @@
 - name: apk | Updating apt cache
   apk:
     update_cache: "yes"
-  tags: packages
+  tags:
+    - packages
+    - cache
+    - molecule-idempotence-notest
 
 - name: apk | Installing packages
   apk:
     name: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
   with_items: "{{ packages }}"
-  tags: packages
+  tags:
+    - packages
+    - install

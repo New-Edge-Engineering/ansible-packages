@@ -9,11 +9,15 @@
     gpgcheck: "{{ item.gpgcheck | default('no') }}"
     state: "{{ item.state | default('present') }}"
   with_items: "{{ packages_repositories|default(packages_repositories_yum) }}"
-  tags: packages
+  tags:
+    - packages
+    - repository
 
 - name: yum | Installing yum packages
   yum:
     pkg: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
   with_items: "{{ packages|default(packages_list_yum) }}"
-  tags: packages
+  tags:
+    - packages
+    - install
