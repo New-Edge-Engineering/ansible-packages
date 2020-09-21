@@ -1,0 +1,96 @@
+---
+scenario:
+  name: apt
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms: # see https://askubuntu.com/questions/445487/what-debian-version-are-the-different-ubuntu-versions-based-on
+  # Not available
+  # - name: debian11
+  #   image: geerlingguy/docker-debian11-ansible:latest
+  #   command: /sbin/init
+  #   pre_build_image: true
+  #   privileged: true
+  #   volumes:
+  #     - /lib/modules:/lib/modules:ro
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  # Seem to make docker unstable
+  - name: debian9
+    image: geerlingguy/docker-debian9-ansible:latest
+    # command: /sbin/init
+    pre_build_image: true
+    privileged: true
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: debian8
+    image: geerlingguy/docker-debian8-ansible:latest
+    # command: /sbin/init
+    pre_build_image: true
+    privileged: true
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  # TODO: build our own images.
+  # - name: ubuntu20
+  #   image: geerlingguy/docker-ubuntu2004-ansible:latest # https://github.com/geerlingguy/docker-ubuntu1804-ansible/issues/6
+  #   # command: /sbin/init
+  #   pre_build_image: true
+  #   privileged: true
+  #   volumes:
+  #     - /lib/modules:/lib/modules:ro
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  # - name: ubuntu18
+  #   image: geerlingguy/docker-ubuntu1804-ansible:latest # https://github.com/geerlingguy/docker-ubuntu1804-ansible/issues/6
+  #   # command: /sbin/init
+  #   pre_build_image: true
+  #   privileged: true
+  #   volumes:
+  #     - /lib/modules:/lib/modules:ro
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: ubuntu16
+    image: geerlingguy/docker-ubuntu1604-ansible:latest
+    command: /sbin/init
+    pre_build_image: true
+    privileged: true
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  # I think this needs the https support to be added first.
+  # - name: ubuntu14
+  #   image: geerlingguy/docker-ubuntu1404-ansible:latest
+  #    # command: /sbin/init
+  #   pre_build_image: true
+  #   privileged: true
+  #   volumes:
+  #     - /lib/modules:/lib/modules:ro
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    group_vars:
+      all:
+        packages:
+          - name: ntp
+    host_vars:
+      ubuntu20:
+        packages_repositories:
+          - url: ppa:vbernat/haproxy-2.2
+      ubuntu18:
+        packages_repositories:
+          - url: ppa:vbernat/haproxy-2.2
+      ubuntu16:
+        packages_repositories:
+          - url: ppa:vbernat/haproxy-1.8
+        packages:
+          - name: language-pack-en
+          - name: ntp
+      ubuntu14:
+        packages_repositories:
+          - url: ppa:vbernat/haproxy-1.8
+verifier:
+  name: ansible
