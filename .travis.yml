@@ -17,9 +17,8 @@ jobs:
         - molecule --version
         - ansible --version
         - molecule test --all
-  exclude:   
     - stage: tag
-      if: type = pull_request
+      if: type != pull_request
       script:
         - git config --global user.email "builds@travis-ci.com"
         - git config --global user.name "Travis CI"
