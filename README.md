@@ -1,4 +1,4 @@
-# Packages
+# Packages [![Build Status](https://travis-ci.com/New-Edge-Engineering/ansible-packages.svg?branch=master)](https://travis-ci.org/New-Edge-Engineering/ansible-packages)
 
 Ansible role for installing any packages without it's configuration, for example: atop, htop, ethtool and so on. Additionally this role allows you to add repositories you want.
 
