@@ -9,8 +9,8 @@ galaxy_info:
   platforms:
   - name: Alpine
     versions:
-    - 3.12
-  - name: CentOS
+    - any
+  - name: EL
     versions:
     - 7
     - 6
@@ -21,7 +21,7 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - xenial # 16.04
-  categories:
+    galaxy_tags:
     - system
     - packaging
 dependencies: []
