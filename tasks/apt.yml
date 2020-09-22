@@ -3,7 +3,7 @@
   apt_key:
     url: "{{ item.key }}"
     state: present
-  when: not(item.key is undefined or item.key is none or item.key|trim == '')
+  when: not(item.key is undefined or item.key is none or item.key|trim|length == 0)
   with_items: "{{ packages_repositories|default(packages_repositories_apt) }}"
   tags:
     - packages

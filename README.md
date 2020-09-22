@@ -45,4 +45,5 @@ Apache
 ## Contributing
 
 * Follow step one in [How To Test Ansible Roles with Molecule](https://www.digitalocean.com/community/tutorials/how-to-test-ansible-roles-with-molecule-on-ubuntu-18-04) to set up environment.
+* Please use `ansible-lint` to check syntax. Install: `pip install ansible-lint`
 * Please submit Pull Request via github.

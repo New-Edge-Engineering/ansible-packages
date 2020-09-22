@@ -14,4 +14,3 @@
         that:
           - not item.changed
       with_items: "{{ pkgs_status.results }}"
-  
