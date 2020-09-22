@@ -6,7 +6,21 @@ services:
   - docker
 install:
   - pip install molecule docker
-script:
-  - molecule --version
-  - ansible --version
-  - molecule test --all
+branches:
+  except:
+    - /^[0-9]{2}.[0-9]{1,2}.[0-9]+$/
+jobs:
+  include:
+    - stage: test
+      script:
+        - molecule --version
+        - ansible --version
+        - molecule test --all
+    - stage: tag
+      if: branch = master
+      script:
+        - git config --global user.email "builds@travis-ci.com"
+        - git config --global user.name "Travis CI"
+        - export GIT_TAG=$(date +"%y").$(date +"%m" | sed 's/^0*//').$TRAVIS_BUILD_NUMBER
+        - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+        - git push -q https://$TAGPERM@github.com/New-Edge-Engineering/ansible-packages --tags
