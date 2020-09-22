@@ -1,0 +1,38 @@
+---
+scenario:
+  name: yum
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  # uses DNF!
+  # - name: centos8
+  #   image: geerlingguy/docker-centos8-ansible:latest
+  #   pre_build_image: true
+  - name: centos7
+    image: geerlingguy/docker-centos7-ansible:latest
+    pre_build_image: true
+    privileged: true
+  - name: centos6
+    image: geerlingguy/docker-centos6-ansible:latest
+    pre_build_image: true
+    privileged: true
+  # TODO: add Fedora 13, 20 & 28
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    group_vars:
+      all:
+        packages_repositories:
+          - name: "epel"
+            description: "EPEL Release Repository"
+            baseurl: "http://download.fedoraproject.org/pub/epel/$$releasever/$$basearch/"
+            mirrorlist: "http://mirrors.fedoraproject.org/metalink?repo=epel-$$releasever&arch=$$basearch"
+        packages:
+          - name: ntp
+          - name: python-pip
+verifier:
+  name: ansible

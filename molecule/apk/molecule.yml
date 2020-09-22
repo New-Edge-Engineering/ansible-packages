@@ -1,0 +1,22 @@
+---
+scenario:
+  name: apk
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: alpine
+    image: alpine:3.12
+    privileged: true
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    group_vars:
+      all:
+        packages:
+          - name: openntpd
+verifier:
+  name: ansible

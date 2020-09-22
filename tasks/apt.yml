@@ -4,24 +4,33 @@
     url: "{{ item.key }}"
     state: present
   when: not(item.key is undefined or item.key is none or item.key|trim == '')
-  with_items: "{{ repositories|default(packages_repositories_apt) }}"
-  tags: packages
+  with_items: "{{ packages_repositories|default(packages_repositories_apt) }}"
+  tags:
+    - packages
+    - repository
 
 - name: apt | Adding apt repository
   apt_repository:
     repo: "{{ item.url }}"
     state: present
-  with_items: "{{ repositories|default(packages_repositories_apt) }}"
-  tags: packages
+  with_items: "{{ packages_repositories|default(packages_repositories_apt) }}"
+  tags:
+    - packages
+    - repository
 
 - name: apt | Updating apt cache
   apt:
     update_cache: "yes"
-  tags: packages
+  tags:
+    - packages
+    - cache
+    - molecule-idempotence-notest
 
 - name: apt | Installing apt packages
   apt:
     pkg: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
   with_items: "{{ packages|default(packages_list_apt) }}"
-  tags: packages
+  tags:
+    - packages
+    - install

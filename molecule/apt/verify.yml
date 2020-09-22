@@ -1,0 +1,16 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+  - name: check package status
+    package:
+      name: "{{ item.name }}"
+      state: present
+    check_mode: yes
+    with_items: "{{ packages }}"
+    register: pkgs_status
+  - name: "verify package is installed"
+    assert:
+      that:
+        - not item.changed
+    with_items: "{{ pkgs_status.results }}"

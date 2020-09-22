@@ -1,4 +1,6 @@
 ---
+- debug:
+    var: ansible_pkg_mgr
 # Install apt packages and repositories
 - import_tasks: apt.yml
   when: ansible_pkg_mgr == "apt"
