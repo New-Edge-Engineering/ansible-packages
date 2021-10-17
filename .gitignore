@@ -4,3 +4,6 @@ molecule/*/pytestdebug.log
 
 # Python virtual environment
 .ve
+
+# VS COde
+.vscode
